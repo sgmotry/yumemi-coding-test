@@ -1,21 +1,23 @@
+import { PrefectureResponse } from '@/types/types'
+
 export const getPrefectures = async () => {
-  const APIKEY = process.env.YUMEMI_API_KEY;
+  const APIKEY = process.env.YUMEMI_API_KEY
 
   const response = await fetch(
-    "https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures",
+    'https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures',
     {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "X-API-KEY": APIKEY || "",
+        'X-API-KEY': APIKEY || '',
       },
-    }
-  );
+    },
+  )
 
   if (!response.ok) {
-    console.error("都道府県のデータ取得に失敗しました。");
+    return undefined
   }
 
-  const data = await response.json();
+  const data: PrefectureResponse = await response.json()
 
-  return data.result;
-};
+  return data.result
+}
