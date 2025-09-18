@@ -8,6 +8,7 @@ export const getPrefectures = async () => {
     {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
         'X-API-KEY': APIKEY || '',
       },
     },
