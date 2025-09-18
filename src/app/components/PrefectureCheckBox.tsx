@@ -3,7 +3,7 @@ import { Prefecture } from '@/types/types'
 const PrefectureCheckBox = ({ data }: { data: Prefecture[] }) => {
   return (
     <>
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-7'>
         {data.map((pref) => (
           <div key={pref.prefCode}>
             <label>
