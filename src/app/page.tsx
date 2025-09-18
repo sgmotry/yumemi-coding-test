@@ -8,7 +8,7 @@ export default async function Home() {
 
   return (
     <>
-      <PrefectureCheckBox data={prefectureData}/>
+      <PrefectureCheckBox data={prefectureData} />
     </>
   )
 }
