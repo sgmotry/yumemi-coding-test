@@ -1,5 +1,5 @@
 'use client'
-import { Prefecture } from '@/types/types'
+import { Prefecture } from '@/app/types/types'
 import { useState } from 'react';
 
 const PrefectureCheckBox = ({ data }: { data: Prefecture[] }) => {

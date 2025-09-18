@@ -1,4 +1,4 @@
-import { PrefectureResponse } from '@/types/types'
+import { PrefectureResponse } from '@/app/types/types'
 
 export const getPrefectures = async () => {
   const APIKEY = process.env.YUMEMI_API_KEY
