@@ -1,13 +1,16 @@
+// 都道府県データ
 export type Prefecture = {
   prefCode: number
   prefName: string
 }
 
+// 都道府県APIレスポンス（resultにデータ）
 export type PrefectureResponse = {
   message: string
   result: Prefecture[]
 }
 
+// 人口構成データ
 export type Population = {
   boundaryYear: number
   data: {
@@ -20,6 +23,7 @@ export type Population = {
   }[]
 }
 
+// 人口構成APIレスポンス（resultにデータ）
 export type PopulationResponse = {
   message: string
   result: Population
