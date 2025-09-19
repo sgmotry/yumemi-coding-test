@@ -1,22 +1,16 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import PopulationGraph from './PopulationGraph'
 import { getPrefectures } from '../utils/prefecture-api'
-import { Prefecture } from '../types/types'
+import useSWR from 'swr'
 
 const PrefectureCheckBox = () => {
-  const [prefectureData, setPrefectureData] = useState<Prefecture[]|undefined>();
   const [checkedCode, setCheckedCode] = useState<number[]>([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getPrefectures();
-      setPrefectureData(data);
-    }
-    fetchData();
-  },[])
-  if (!prefectureData) return '都道府県データが取得できませんでした。'
-  
+  const { data, error, isLoading } = useSWR('prefectures', getPrefectures)
+  if (isLoading) return '読み込み中です。'
+  if (error || !data) return '都道府県データが取得できませんでした。'
+
   const handleCheckboxChange = (target: number) => {
     if (checkedCode.includes(target)) {
       setCheckedCode(checkedCode.filter((code) => code !== target))
@@ -28,7 +22,7 @@ const PrefectureCheckBox = () => {
   return (
     <>
       <div className="grid grid-cols-7">
-        {prefectureData.map((pref) => (
+        {data.map((pref) => (
           <div key={pref.prefCode}>
             <label>
               <input
@@ -42,7 +36,7 @@ const PrefectureCheckBox = () => {
         ))}
       </div>
 
-      <PopulationGraph checkedCode={checkedCode} prefectures={prefectureData} />
+      <PopulationGraph checkedCode={checkedCode} prefectures={data} />
     </>
   )
 }
