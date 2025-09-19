@@ -11,8 +11,8 @@ const YAxisOptions = ({
   setIsDispRate: React.Dispatch<SetStateAction<boolean>>
 }) => {
   return (
-    <div className='h-0 flex justify-evenly my-5'>
-      <label>
+    <div className='h-0 flex justify-center my-5'>
+      <label className='mx-2'>
         <input
           name="y-AxisOption"
           type="radio"
@@ -21,7 +21,7 @@ const YAxisOptions = ({
         />
         人口
       </label>
-      <label>
+      <label className='mx-2'>
         <input
           name="y-AxisOption"
           type="radio"

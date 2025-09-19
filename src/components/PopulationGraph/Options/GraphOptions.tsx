@@ -16,9 +16,9 @@ const GraphOptions = ({
   setGraphOption: React.Dispatch<SetStateAction<GraphOption>>
 }) => {
   return (
-    <div className='h-0 flex justify-evenly'>
+    <div className='h-0 flex justify-center'>
       {OPTIONS.map((option) => (
-        <label key={option} className=''>
+        <label key={option} className='mx-2'>
           <input
             name="graphOption"
             type="radio"
