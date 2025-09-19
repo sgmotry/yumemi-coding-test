@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { GraphOption, Population, Prefecture } from '../types/types'
-import { getPopulation } from '../utils/population-api'
-import useSWR from 'swr'
+import { GraphOption, Prefecture } from '../types/types'
 import COLORS from '../utils/colors'
 import {
   LineChart,
@@ -14,17 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-const populationDataFetcher = async (
-  codes: number[],
-): Promise<Population[]> => {
-  if (codes.length === 0) {
-    return []
-  }
-  const promises = codes.map((code) => getPopulation(code))
-  const results = await Promise.all(promises)
-  return results.filter((res): res is Population => res !== undefined)
-}
+import { usePopulationData } from '@/hooks/usePopulationData'
 
 const PopulationGraph = ({
   checkedCode,
@@ -35,13 +23,7 @@ const PopulationGraph = ({
 }) => {
   const [graphOption, setGraphOption] = useState<GraphOption>('総人口')
   const [isDispRate, setIsDispRate] = useState(false)
-   const { data: populationData } = useSWR(
-    checkedCode.sort(),
-    populationDataFetcher,
-    {
-      keepPreviousData: true
-    },
-  )
+  const populationData = usePopulationData(checkedCode)
 
   useEffect(() => {
     if (graphOption === '総人口') setIsDispRate(false)
