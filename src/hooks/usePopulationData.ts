@@ -13,7 +13,7 @@ const populationDataFetcher = async (
   return results.filter((res): res is Population => res !== undefined)
 }
 
-export const usePopulationData = (checkedCode: number[]) => {
+const usePopulationData = (checkedCode: number[]) => {
   const { data: populationData } = useSWR(
     checkedCode.sort(),
     populationDataFetcher,
@@ -23,3 +23,4 @@ export const usePopulationData = (checkedCode: number[]) => {
   )
   return populationData
 }
+export default usePopulationData
