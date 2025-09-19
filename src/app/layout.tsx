@@ -27,6 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className='text-center bg-blue-600 p-1'>都道府県別総人口推移グラフ</header>
         {children}
       </body>
     </html>
