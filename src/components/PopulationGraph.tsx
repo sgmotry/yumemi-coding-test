@@ -35,6 +35,7 @@ const PopulationGraph = ({
   const prefMap = useMemo(() => {
     return new Map(prefectures.map((p) => [p.prefCode, p.prefName]))
   }, [prefectures])
+  
   const graphData = useGraphData(
     populationData,
     prefMap,
