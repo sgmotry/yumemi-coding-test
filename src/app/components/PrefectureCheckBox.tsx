@@ -7,9 +7,11 @@ import useSWR from 'swr'
 const PrefectureCheckBox = () => {
   const [checkedCode, setCheckedCode] = useState<number[]>([])
 
-  const { data, error, isLoading } = useSWR('prefectures', getPrefectures)
+  const { data:prefectures, error, isLoading } = useSWR('prefectures', getPrefectures, {
+    revalidateOnFocus: false,
+  })
   if (isLoading) return '読み込み中です。'
-  if (error || !data) return '都道府県データが取得できませんでした。'
+  if (error || !prefectures) return '都道府県データが取得できませんでした。'
 
   const handleCheckboxChange = (target: number) => {
     if (checkedCode.includes(target)) {
@@ -22,7 +24,7 @@ const PrefectureCheckBox = () => {
   return (
     <>
       <div className="grid grid-cols-7">
-        {data.map((pref) => (
+        {prefectures.map((pref) => (
           <div key={pref.prefCode}>
             <label>
               <input
@@ -36,7 +38,7 @@ const PrefectureCheckBox = () => {
         ))}
       </div>
 
-      <PopulationGraph checkedCode={checkedCode} prefectures={data} />
+      <PopulationGraph checkedCode={checkedCode} prefectures={prefectures} />
     </>
   )
 }
