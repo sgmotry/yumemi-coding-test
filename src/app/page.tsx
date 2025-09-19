@@ -1,4 +1,4 @@
-import PopulationTrendApp from "./_components/PopulationTrendApp"
+import PopulationTrendApp from "./components/PopulationTrendApp"
 
 export default async function Home() {
   return (

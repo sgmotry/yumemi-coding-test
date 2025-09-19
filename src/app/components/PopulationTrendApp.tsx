@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import PopulationGraph from './PopulationGraph'
 import PrefectureCheckBox from './PrefectureCheckBox'
-import { getPrefectures } from '../_utils/prefecture-api'
+import { getPrefectures } from '../utils/prefecture-api'
 import useSWR from 'swr'
 
 const PopulationTrendApp = () => {

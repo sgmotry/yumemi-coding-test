@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { GraphOption, Population, Prefecture } from '../_types/types'
-import { getPopulation } from '../_utils/population-api'
+import { GraphOption, Population, Prefecture } from '../types/types'
+import { getPopulation } from '../utils/population-api'
 import useSWR from 'swr'
-import COLORS from '../_utils/colors'
+import COLORS from '../utils/colors'
 import {
   LineChart,
   Line,

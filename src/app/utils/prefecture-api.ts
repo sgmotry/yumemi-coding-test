@@ -1,4 +1,4 @@
-import { PrefectureResponse } from '@/app/_types/types'
+import { PrefectureResponse } from '@/app/types/types'
 
 export const getPrefectures = async () => {
   const response = await fetch('/api/prefectures', {
