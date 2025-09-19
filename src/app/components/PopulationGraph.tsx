@@ -14,19 +14,54 @@ import {
 } from 'recharts'
 
 const COLORS = [
-  '#0088FE',
-  '#00C49F',
-  '#FFBB28',
-  '#FF8042',
-  '#8884d8',
-  '#ff7300',
-  '#413ea0',
-  '#ffc658',
-  '#82ca9d',
-  '#d0ed57',
-  '#a4de6c',
-  '#8dd1e1',
-]
+  "#FF6347",
+  "#FFD700",
+  "#ADFF2F",
+  "#40E0D0",
+  "#1E90FF",
+  "#BA55D3",
+  "#FF1493",
+  "#9400D3",
+  "#FF4500",
+  "#DAA520",
+  "#32CD32",
+  "#00CED1",
+  "#6495ED",
+  "#FF69B4",
+  "#8A2BE2",
+  "#FFA07A",
+  "#CD5C5C",
+  "#BDB76B",
+  "#8FBC8F",
+  "#20B2AA",
+  "#87CEFA",
+  "#DDA0DD",
+  "#9370DB",
+  "#FF8C00",
+  "#B22222",
+  "#DEB887",
+  "#7CFC00",
+  "#4682B4",
+  "#800080",
+  "#FF00FF",
+  "#6A5ACD",
+  "#F4A460",
+  "#A52A2A",
+  "#9ACD32",
+  "#008B8B",
+  "#48D1CC",
+  "#ADD8E6",
+  "#FFC0CB",
+  "#D8BFD8",
+  "#B0E0E6",
+  "#FFE4B5",
+  "#FFA500",
+  "#00FF00",
+  "#00FFFF",
+  "#0000FF",
+  "#FF0000",
+  "#FFFF00" 
+];
 
 const PopulationGraph = ({
   checkedCode,
@@ -50,8 +85,7 @@ const PopulationGraph = ({
         setPopulationData(
           results.filter((res): res is Population => res !== undefined),
         )
-      } catch (error) {
-        console.error('error:', error)
+      } catch {
         setPopulationData([])
       }
     }
@@ -124,9 +158,9 @@ const PopulationGraph = ({
               label={{ value: '人口数', angle: -90, position: 'insideLeft' }}
             />
             <Tooltip />
-            <Legend verticalAlign="top" height={36} />
+            <Legend verticalAlign="bottom" height={36} />
             {/* 選択された都道府県の数だけLineを動的に描画 */}
-            {checkedCode.map((code, index) => {
+            {checkedCode.map((code) => {
               const prefName = prefectures.find(
                 (p) => p.prefCode === code,
               )?.prefName
@@ -136,7 +170,7 @@ const PopulationGraph = ({
                   key={prefName}
                   type="monotone"
                   dataKey={prefName}
-                  stroke={COLORS[index % COLORS.length]}
+                  stroke={COLORS[code % COLORS.length]}
                   strokeWidth={2}
                 />
               )
