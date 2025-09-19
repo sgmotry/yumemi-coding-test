@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 株式会社ゆめみ フロントエンドコーディング試験
 
-## Getting Started
+## 最初に
+テストツール/テストコードの作成は出来ませんでした。
 
-First, run the development server:
+## 概要
+このプロジェクトは、都道府県を選び、選んだ都道府県の人口推移をグラフで表示するWebアプリです。
 
+NextJSとTailwindCSSでUIを構築、グラフにはRechartsを使用しています。
+
+<img src="docs/image.png">
+
+## ディレクトリ構成
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+├─app
+│  │  favicon.ico
+│  │  globals.css
+│  │  layout.tsx
+│  │  page.tsx
+│  │
+│  └─api
+│      ├─population
+│      │      route.ts
+│      │
+│      └─prefectures
+│              route.ts
+│
+├─components
+│  │  PopulationTrendApp.tsx
+│  │
+│  ├─PopulationGraph
+│  │  │  PopulationGraph.tsx
+│  │  │
+│  │  ├─GraphManager
+│  │  │      GraphManager.tsx
+│  │  │
+│  │  └─Options
+│  │          GraphOptions.tsx
+│  │          YAxisOptions.tsx
+│  │
+│  └─PrefectureCheckBox
+│          PrefectureCheckBox.tsx
+│
+├─hooks
+│      useGraphData.ts
+│      usePopulationData.ts
+│
+├─types
+│      types.ts
+│
+└─utils
+        colors.ts
+        population-api.ts
+        prefecture-api.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用技術
+フロントエンド
+- NextJS 15
+- React 19
+- TailwindCSS 4
+- TypeScript
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+データフェッチ : SWR
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+グラフ : Recharts
 
-## Learn More
+リンタ : ESLint
 
-To learn more about Next.js, take a look at the following resources:
+フォーマッタ : Prettier
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+テストツール : PlayWright
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+パッケージ管理 : yarn
