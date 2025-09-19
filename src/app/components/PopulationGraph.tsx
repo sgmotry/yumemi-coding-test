@@ -72,6 +72,7 @@ const PopulationGraph = ({
 }) => {
   const [populationData, setPopulationData] = useState<Population[]>([])
   const [graphOption, setGraphOption] = useState<GraphOption>('総人口')
+  const [isDispRate, setIsDispRate] = useState(false)
 
   useEffect(() => {
     if (checkedCode.length === 0) {
@@ -92,6 +93,10 @@ const PopulationGraph = ({
     fetchData()
   }, [checkedCode])
 
+  useEffect(() => {
+    if (graphOption === '総人口') setIsDispRate(false)
+  }, [graphOption])
+
   const graphData = useMemo(() => {
     if (populationData.length === 0) {
       return []
@@ -107,7 +112,6 @@ const PopulationGraph = ({
 
     // 取得した各都道府県の人口データをループ
     populationData.forEach((prefPop) => {
-      // APIレスポンスとチェックされたコードの順番は対応している
       const prefCode = prefPop.prefCode
       const prefName = prefMap.get(prefCode)
       if (!prefName) return
@@ -117,18 +121,18 @@ const PopulationGraph = ({
       if (!totalPopulation) return
 
       // 年ごとのデータを整形
-      totalPopulation.data.forEach(({ year, value }) => {
+      totalPopulation.data.forEach(({ year, value, rate }) => {
         if (!formattedData[year]) {
           formattedData[year] = { year: year }
         }
-        formattedData[year][prefName] = value
+        formattedData[year][prefName] = isDispRate ? rate : value
       })
     })
     // オブジェクトを配列に変換して年でソートする
     return Object.values(formattedData).sort(
       (a, b) => (a.year as number) - (b.year as number),
     )
-  }, [populationData, prefectures, graphOption])
+  }, [populationData, prefectures, graphOption, isDispRate])
 
   return (
     <>
@@ -154,8 +158,14 @@ const PopulationGraph = ({
             />
             <YAxis
               width={80}
-              tickFormatter={(value) => `${(value as number) / 10000}万人`}
-              label={{ value: '人口数', angle: -90, position: 'insideLeft' }}
+              tickFormatter={(value) =>
+                isDispRate ? `${value}%` : `${(value as number) / 10000}万人`
+              }
+              label={{
+                value: isDispRate ? '割合' : '人口数',
+                angle: -90,
+                position: 'insideLeft',
+              }}
             />
             <Tooltip />
             <Legend verticalAlign="bottom" height={36} />
@@ -180,7 +190,7 @@ const PopulationGraph = ({
       </div>
       <label>
         <input
-          name="options"
+          name="graphOption"
           type="radio"
           checked={graphOption === '総人口'}
           onChange={() => setGraphOption('総人口')}
@@ -189,7 +199,7 @@ const PopulationGraph = ({
       </label>
       <label>
         <input
-          name="options"
+          name="graphOption"
           type="radio"
           checked={graphOption === '年少人口'}
           onChange={() => setGraphOption('年少人口')}
@@ -198,7 +208,7 @@ const PopulationGraph = ({
       </label>
       <label>
         <input
-          name="options"
+          name="graphOption"
           type="radio"
           checked={graphOption === '生産年齢人口'}
           onChange={() => setGraphOption('生産年齢人口')}
@@ -207,12 +217,32 @@ const PopulationGraph = ({
       </label>
       <label>
         <input
-          name="options"
+          name="graphOption"
           type="radio"
           checked={graphOption === '老年人口'}
           onChange={() => setGraphOption('老年人口')}
         />
         老年人口
+      </label>
+      <br />
+      <label>
+        <input
+          name="y-AxisOption"
+          type="radio"
+          checked={!isDispRate}
+          onChange={() => setIsDispRate(false)}
+        />
+        人口
+      </label>
+      <label>
+        <input
+          name="y-AxisOption"
+          type="radio"
+          checked={isDispRate && graphOption !== '総人口'}
+          onChange={() => setIsDispRate(true)}
+          disabled={graphOption === '総人口'}
+        />
+        割合
       </label>
     </>
   )
