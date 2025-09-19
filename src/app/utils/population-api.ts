@@ -17,6 +17,6 @@ export const getPopulation = async (prefCode: number) => {
   }
 
   const data: PopulationResponse = await response.json()
-  
+
   return data.result
 }

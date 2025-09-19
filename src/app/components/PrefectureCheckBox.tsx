@@ -31,7 +31,7 @@ const PrefectureCheckBox = ({ data }: { data: Prefecture[] }) => {
         ))}
       </div>
 
-      <PopulationGraph checkedCode={checkedCode} prefectures={data}/>
+      <PopulationGraph checkedCode={checkedCode} prefectures={data} />
     </>
   )
 }

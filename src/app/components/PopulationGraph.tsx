@@ -98,7 +98,7 @@ const PopulationGraph = ({
 
   return (
     <>
-      <div className="w-[50%] h-[30rem]">
+      <div className="h-[30rem] w-[50%]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={graphData}
