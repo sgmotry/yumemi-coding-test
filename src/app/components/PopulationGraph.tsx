@@ -144,6 +144,42 @@ const PopulationGraph = ({
           </LineChart>
         </ResponsiveContainer>
       </div>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={false}
+          onChange={() => 0}
+        />
+        総人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={false}
+          onChange={() => 0}
+        />
+        年少人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={false}
+          onChange={() => 0}
+        />
+        生産年齢人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={false}
+          onChange={() => 0}
+        />
+        老年人口
+      </label>
     </>
   )
 }
