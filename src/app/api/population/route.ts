@@ -1,4 +1,7 @@
-import { PopulationResponse, PopulationResponseNoPrefCode } from '@/app/types/types'
+import {
+  PopulationResponse,
+  PopulationResponseNoPrefCode,
+} from '@/app/types/types'
 import { type NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -26,7 +29,7 @@ export async function GET(request: NextRequest) {
       },
     )
   }
-  
+
   const data: PopulationResponseNoPrefCode = await response.json()
 
   // prefCodeをレスポンスに付加
