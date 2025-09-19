@@ -25,15 +25,15 @@ const GraphManager = ({
   prefMap: Map<number, string>
 }) => {
   return (
-    <div className="h-[30rem] w-[50%]">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="h-[30rem] w-full">
+      <ResponsiveContainer width="90%" height="100%" className="mx-auto">
         <LineChart
           data={graphData}
           margin={{
-            top: 5,
-            right: 30,
-            left: 30,
-            bottom: 20,
+            top: 20,
+            right: 10,
+            left: 0,
+            bottom: 10,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />

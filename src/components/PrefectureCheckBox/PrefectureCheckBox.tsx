@@ -19,7 +19,7 @@ const PrefectureCheckBox = ({
     }
   }
   return (
-    <div className="grid grid-cols-7">
+    <div className="grid s600:grid-cols-7 s405:grid-cols-5 s335:grid-cols-4 grid-cols-3">
       {prefectures.map((pref) => (
         <div key={pref.prefCode}>
           <label>
