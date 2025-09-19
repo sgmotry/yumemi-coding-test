@@ -106,9 +106,9 @@ const PopulationGraph = ({
     } = {}
 
     // 取得した各都道府県の人口データをループ
-    populationData.forEach((prefPop, index) => {
+    populationData.forEach((prefPop) => {
       // APIレスポンスとチェックされたコードの順番は対応している
-      const prefCode = checkedCode[index]
+      const prefCode = prefPop.prefCode
       const prefName = prefMap.get(prefCode)
       if (!prefName) return
 
@@ -128,7 +128,7 @@ const PopulationGraph = ({
     return Object.values(formattedData).sort(
       (a, b) => (a.year as number) - (b.year as number),
     )
-  }, [populationData, checkedCode, prefectures, graphOption])
+  }, [populationData, prefectures, graphOption])
 
   return (
     <>
