@@ -11,7 +11,7 @@ const YAxisOptions = ({
   setIsDispRate: React.Dispatch<SetStateAction<boolean>>
 }) => {
   return (
-    <>
+    <div className='h-0 flex justify-evenly my-5'>
       <label>
         <input
           name="y-AxisOption"
@@ -31,7 +31,7 @@ const YAxisOptions = ({
         />
         割合
       </label>
-    </>
+    </div>
   )
 }
 
