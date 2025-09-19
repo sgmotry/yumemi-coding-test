@@ -1,9 +1,8 @@
 import { PopulationResponse } from '@/app/types/types'
 
 export const getPopulation = async (prefCode: number) => {
-  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
   const response = await fetch(
-    `${baseUrl}/api/population?prefCode=${prefCode}`,
+    `/api/population?prefCode=${prefCode}`,
     {
       method: 'GET',
       headers: {

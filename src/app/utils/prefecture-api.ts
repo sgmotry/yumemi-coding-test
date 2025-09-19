@@ -1,8 +1,7 @@
 import { PrefectureResponse } from '@/app/types/types'
 
 export const getPrefectures = async () => {
-  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
-  const response = await fetch(`${baseUrl}/api/prefectures`, {
+  const response = await fetch('/api/prefectures', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
