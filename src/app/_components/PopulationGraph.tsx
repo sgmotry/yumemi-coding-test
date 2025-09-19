@@ -36,7 +36,7 @@ const PopulationGraph = ({
   const [graphOption, setGraphOption] = useState<GraphOption>('総人口')
   const [isDispRate, setIsDispRate] = useState(false)
    const { data: populationData } = useSWR(
-    checkedCode,
+    checkedCode.sort(),
     populationDataFetcher,
     {
       keepPreviousData: true
