@@ -1,4 +1,4 @@
-import { PopulationResponse } from '@/app/types/types'
+import { PopulationResponse, PopulationResponseNoPrefCode } from '@/app/types/types'
 import { type NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -26,9 +26,18 @@ export async function GET(request: NextRequest) {
       },
     )
   }
+  
+  const data: PopulationResponseNoPrefCode = await response.json()
 
-  const data: PopulationResponse = await response.json()
-  return new Response(JSON.stringify(data), {
+  // prefCodeをレスポンスに付加
+  const dataWithPrefCode: PopulationResponse = {
+    message: data.message,
+    result: {
+      ...data.result,
+      prefCode: Number(query),
+    },
+  }
+  return new Response(JSON.stringify(dataWithPrefCode), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   })
