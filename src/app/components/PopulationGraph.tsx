@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { GraphOption, Population, Prefecture } from '../types/types'
 import { getPopulation } from '../utils/population-api'
+import COLORS from '../utils/colors'
 import {
   LineChart,
   Line,
@@ -12,56 +13,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-const COLORS = [
-  '#FF6347',
-  '#FFD700',
-  '#ADFF2F',
-  '#40E0D0',
-  '#1E90FF',
-  '#BA55D3',
-  '#FF1493',
-  '#9400D3',
-  '#FF4500',
-  '#DAA520',
-  '#32CD32',
-  '#00CED1',
-  '#6495ED',
-  '#FF69B4',
-  '#8A2BE2',
-  '#FFA07A',
-  '#CD5C5C',
-  '#BDB76B',
-  '#8FBC8F',
-  '#20B2AA',
-  '#87CEFA',
-  '#DDA0DD',
-  '#9370DB',
-  '#FF8C00',
-  '#B22222',
-  '#DEB887',
-  '#7CFC00',
-  '#4682B4',
-  '#800080',
-  '#FF00FF',
-  '#6A5ACD',
-  '#F4A460',
-  '#A52A2A',
-  '#9ACD32',
-  '#008B8B',
-  '#48D1CC',
-  '#ADD8E6',
-  '#FFC0CB',
-  '#D8BFD8',
-  '#B0E0E6',
-  '#FFE4B5',
-  '#FFA500',
-  '#00FF00',
-  '#00FFFF',
-  '#0000FF',
-  '#FF0000',
-  '#FFFF00',
-]
 
 const PopulationGraph = ({
   checkedCode,
@@ -102,25 +53,21 @@ const PopulationGraph = ({
       return []
     }
 
-    // 都道府県コードと都道府県名の対応マップを作成（処理の高速化のため）
     const prefMap = new Map(prefectures.map((p) => [p.prefCode, p.prefName]))
 
-    // recharts用のデータ構造に変換する
     const formattedData: {
       [year: number]: { [prefecture: string]: number }
     } = {}
 
-    // 取得した各都道府県の人口データをループ
     populationData.forEach((prefPop) => {
       const prefCode = prefPop.prefCode
       const prefName = prefMap.get(prefCode)
       if (!prefName) return
 
-      // ラベルからデータを抽出
+      // 選択中のラベルからデータを抽出
       const totalPopulation = prefPop.data.find((d) => d.label === graphOption)
       if (!totalPopulation) return
 
-      // 年ごとのデータを整形
       totalPopulation.data.forEach(({ year, value, rate }) => {
         if (!formattedData[year]) {
           formattedData[year] = { year: year }
@@ -128,7 +75,6 @@ const PopulationGraph = ({
         formattedData[year][prefName] = isDispRate ? rate : value
       })
     })
-    // オブジェクトを配列に変換して年でソートする
     return Object.values(formattedData).sort(
       (a, b) => (a.year as number) - (b.year as number),
     )
@@ -169,7 +115,6 @@ const PopulationGraph = ({
             />
             <Tooltip />
             <Legend verticalAlign="bottom" height={36} />
-            {/* 選択された都道府県の数だけLineを動的に描画 */}
             {checkedCode.map((code) => {
               const prefName = prefectures.find(
                 (p) => p.prefCode === code,
