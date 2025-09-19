@@ -1,4 +1,4 @@
-import { PopulationResponse } from '@/app/types/types'
+import { PopulationResponse } from '@/types/types'
 
 export const getPopulation = async (prefCode: number) => {
   const response = await fetch(`/api/population?prefCode=${prefCode}`, {

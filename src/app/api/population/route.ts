@@ -1,7 +1,7 @@
 import {
   PopulationResponse,
   PopulationResponseNoPrefCode,
-} from '@/app/types/types'
+} from '@/types/types'
 import { type NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
