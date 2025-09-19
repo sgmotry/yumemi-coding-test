@@ -1,6 +1,6 @@
 'use client'
 import { SetStateAction } from 'react'
-import { Prefecture } from '../types/types'
+import { Prefecture } from '../../types/types'
 
 const PrefectureCheckBox = ({
   prefectures,

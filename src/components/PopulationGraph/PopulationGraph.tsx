@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { GraphOption, Prefecture } from '../types/types'
-import COLORS from '../utils/colors'
+import { GraphOption, Prefecture } from '../../types/types'
+import COLORS from '../../utils/colors'
 import {
   LineChart,
   Line,
@@ -13,8 +13,8 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import usePopulationData from '@/hooks/usePopulationData'
-import GraphOptions from './GraphOptions'
-import YAxisOptions from './YAxisOptions'
+import GraphOptions from './Options/GraphOptions'
+import YAxisOptions from './Options/YAxisOptions'
 import useGraphData from '@/hooks/useGraphData'
 
 const PopulationGraph = ({

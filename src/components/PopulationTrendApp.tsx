@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import PopulationGraph from './PopulationGraph'
-import PrefectureCheckBox from './PrefectureCheckBox'
+import PopulationGraph from './PopulationGraph/PopulationGraph'
+import PrefectureCheckBox from './PrefectureCheckBox/PrefectureCheckBox'
 import { getPrefectures } from '../utils/prefecture-api'
 import useSWR from 'swr'
 
