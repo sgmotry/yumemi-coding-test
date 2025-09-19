@@ -12,9 +12,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-import { usePopulationData } from '@/hooks/usePopulationData'
+import usePopulationData from '@/hooks/usePopulationData'
 import GraphOptions from './GraphOptions'
 import YAxisOptions from './YAxisOptions'
+import useGraphData from '@/hooks/useGraphData'
 
 const PopulationGraph = ({
   checkedCode,
@@ -34,36 +35,12 @@ const PopulationGraph = ({
   const prefMap = useMemo(() => {
     return new Map(prefectures.map((p) => [p.prefCode, p.prefName]))
   }, [prefectures])
-
-  const graphData = useMemo(() => {
-    if (!populationData || populationData.length === 0) {
-      return []
-    }
-
-    const formattedData: {
-      [year: number]: { [prefecture: string]: number }
-    } = {}
-
-    populationData.forEach((prefPop) => {
-      const prefCode = prefPop.prefCode
-      const prefName = prefMap.get(prefCode)
-      if (!prefName) return
-
-      // 選択中のラベルからデータを抽出
-      const totalPopulation = prefPop.data.find((d) => d.label === graphOption)
-      if (!totalPopulation) return
-
-      totalPopulation.data.forEach(({ year, value, rate }) => {
-        if (!formattedData[year]) {
-          formattedData[year] = { year: year }
-        }
-        formattedData[year][prefName] = isDispRate ? rate : value
-      })
-    })
-    return Object.values(formattedData).sort(
-      (a, b) => (a.year as number) - (b.year as number),
-    )
-  }, [populationData, graphOption, isDispRate, prefMap])
+  const graphData = useGraphData(
+    populationData,
+    prefMap,
+    graphOption,
+    isDispRate,
+  )
 
   return (
     <>
