@@ -7,7 +7,11 @@ import useSWR from 'swr'
 const PrefectureCheckBox = () => {
   const [checkedCode, setCheckedCode] = useState<number[]>([])
 
-  const { data:prefectures, error, isLoading } = useSWR('prefectures', getPrefectures, {
+  const {
+    data: prefectures,
+    error,
+    isLoading,
+  } = useSWR('prefectures', getPrefectures, {
     revalidateOnFocus: false,
   })
   if (isLoading) return '読み込み中です。'
