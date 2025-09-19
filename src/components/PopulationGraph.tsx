@@ -13,6 +13,8 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { usePopulationData } from '@/hooks/usePopulationData'
+import GraphOptions from './GraphOptions'
+import YAxisOptions from './YAxisOptions'
 
 const PopulationGraph = ({
   checkedCode,
@@ -29,12 +31,14 @@ const PopulationGraph = ({
     if (graphOption === '総人口') setIsDispRate(false)
   }, [graphOption])
 
+  const prefMap = useMemo(() => {
+    return new Map(prefectures.map((p) => [p.prefCode, p.prefName]))
+  }, [prefectures])
+
   const graphData = useMemo(() => {
     if (!populationData || populationData.length === 0) {
       return []
     }
-
-    const prefMap = new Map(prefectures.map((p) => [p.prefCode, p.prefName]))
 
     const formattedData: {
       [year: number]: { [prefecture: string]: number }
@@ -59,7 +63,7 @@ const PopulationGraph = ({
     return Object.values(formattedData).sort(
       (a, b) => (a.year as number) - (b.year as number),
     )
-  }, [populationData, prefectures, graphOption, isDispRate])
+  }, [populationData, graphOption, isDispRate, prefMap])
 
   return (
     <>
@@ -97,9 +101,7 @@ const PopulationGraph = ({
             <Tooltip />
             <Legend verticalAlign="bottom" height={36} />
             {checkedCode.map((code) => {
-              const prefName = prefectures.find(
-                (p) => p.prefCode === code,
-              )?.prefName
+              const prefName = prefMap.get(code)
               if (!prefName) return null
               return (
                 <Line
@@ -114,62 +116,13 @@ const PopulationGraph = ({
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <label>
-        <input
-          name="graphOption"
-          type="radio"
-          checked={graphOption === '総人口'}
-          onChange={() => setGraphOption('総人口')}
-        />
-        総人口
-      </label>
-      <label>
-        <input
-          name="graphOption"
-          type="radio"
-          checked={graphOption === '年少人口'}
-          onChange={() => setGraphOption('年少人口')}
-        />
-        年少人口
-      </label>
-      <label>
-        <input
-          name="graphOption"
-          type="radio"
-          checked={graphOption === '生産年齢人口'}
-          onChange={() => setGraphOption('生産年齢人口')}
-        />
-        生産年齢人口
-      </label>
-      <label>
-        <input
-          name="graphOption"
-          type="radio"
-          checked={graphOption === '老年人口'}
-          onChange={() => setGraphOption('老年人口')}
-        />
-        老年人口
-      </label>
+      <GraphOptions graphOption={graphOption} setGraphOption={setGraphOption} />
       <br />
-      <label>
-        <input
-          name="y-AxisOption"
-          type="radio"
-          checked={!isDispRate}
-          onChange={() => setIsDispRate(false)}
-        />
-        人口
-      </label>
-      <label>
-        <input
-          name="y-AxisOption"
-          type="radio"
-          checked={isDispRate && graphOption !== '総人口'}
-          onChange={() => setIsDispRate(true)}
-          disabled={graphOption === '総人口'}
-        />
-        割合
-      </label>
+      <YAxisOptions
+        graphOption={graphOption}
+        isDispRate={isDispRate}
+        setIsDispRate={setIsDispRate}
+      />
     </>
   )
 }
