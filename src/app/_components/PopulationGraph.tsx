@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { GraphOption, Population, Prefecture } from '../_types/types'
 import { getPopulation } from '../_utils/population-api'
+import useSWR from 'swr'
 import COLORS from '../_utils/colors'
 import {
   LineChart,
@@ -14,6 +15,17 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
+const populationDataFetcher = async (
+  codes: number[],
+): Promise<Population[]> => {
+  if (codes.length === 0) {
+    return []
+  }
+  const promises = codes.map((code) => getPopulation(code))
+  const results = await Promise.all(promises)
+  return results.filter((res): res is Population => res !== undefined)
+}
+
 const PopulationGraph = ({
   checkedCode,
   prefectures,
@@ -21,35 +33,22 @@ const PopulationGraph = ({
   checkedCode: number[]
   prefectures: Prefecture[]
 }) => {
-  const [populationData, setPopulationData] = useState<Population[]>([])
   const [graphOption, setGraphOption] = useState<GraphOption>('総人口')
   const [isDispRate, setIsDispRate] = useState(false)
-
-  useEffect(() => {
-    if (checkedCode.length === 0) {
-      setPopulationData([])
-      return
-    }
-    const fetchData = async () => {
-      const promises = checkedCode.map((code) => getPopulation(code))
-      try {
-        const results = await Promise.all(promises)
-        setPopulationData(
-          results.filter((res): res is Population => res !== undefined),
-        )
-      } catch {
-        setPopulationData([])
-      }
-    }
-    fetchData()
-  }, [checkedCode])
+   const { data: populationData } = useSWR(
+    checkedCode,
+    populationDataFetcher,
+    {
+      keepPreviousData: true
+    },
+  )
 
   useEffect(() => {
     if (graphOption === '総人口') setIsDispRate(false)
   }, [graphOption])
 
   const graphData = useMemo(() => {
-    if (populationData.length === 0) {
+    if (!populationData || populationData.length === 0) {
       return []
     }
 
