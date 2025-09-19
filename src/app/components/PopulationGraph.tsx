@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { Population, Prefecture } from '../types/types'
+import { GraphOption, Population, Prefecture } from '../types/types'
 import { getPopulation } from '../utils/population-api'
 import {
   LineChart,
@@ -36,6 +36,7 @@ const PopulationGraph = ({
   prefectures: Prefecture[]
 }) => {
   const [populationData, setPopulationData] = useState<Population[]>([])
+  const [graphOption, setGraphOption] = useState<GraphOption>("総人口")
 
   useEffect(() => {
     if (checkedCode.length === 0) {
@@ -76,9 +77,9 @@ const PopulationGraph = ({
       const prefCode = checkedCode[index]
       const prefName = prefMap.get(prefCode)
       if (!prefName) return
-
-      // 「総人口」のデータのみを抽出
-      const totalPopulation = prefPop.data.find((d) => d.label === '総人口')
+      
+      // ラベルからデータを抽出
+      const totalPopulation = prefPop.data.find((d) => d.label === graphOption)
       if (!totalPopulation) return
 
       // 年ごとのデータを整形
@@ -89,12 +90,11 @@ const PopulationGraph = ({
         formattedData[year][prefName] = value
       })
     })
-    console.log(formattedData)
     // オブジェクトを配列に変換して年でソートする
     return Object.values(formattedData).sort(
       (a, b) => (a.year as number) - (b.year as number),
     )
-  }, [populationData, checkedCode, prefectures])
+  }, [populationData, checkedCode, prefectures, graphOption])
 
   return (
     <>
@@ -144,6 +144,42 @@ const PopulationGraph = ({
           </LineChart>
         </ResponsiveContainer>
       </div>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={graphOption === "総人口"}
+          onChange={() => setGraphOption("総人口")}
+        />
+        総人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={graphOption === "年少人口"}
+          onChange={() => setGraphOption("年少人口")}
+        />
+        年少人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={graphOption === "生産年齢人口"}
+          onChange={() => setGraphOption("生産年齢人口")}
+        />
+        生産年齢人口
+      </label>
+      <label>
+        <input
+          name="options"
+          type="radio"
+          checked={graphOption === "老年人口"}
+          onChange={() => setGraphOption("老年人口")}
+        />
+        老年人口
+      </label>
     </>
   )
 }
