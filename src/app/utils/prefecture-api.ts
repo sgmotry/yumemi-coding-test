@@ -1,15 +1,13 @@
 import { PrefectureResponse } from '@/app/types/types'
 
 export const getPrefectures = async () => {
-  const APIKEY = process.env.YUMEMI_API_KEY
-
+  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
   const response = await fetch(
-    'https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures',
+    `${baseUrl}/api/prefectures`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'X-API-KEY': APIKEY || '',
       },
     },
   )
@@ -19,6 +17,6 @@ export const getPrefectures = async () => {
   }
 
   const data: PrefectureResponse = await response.json()
-
+  
   return data.result
 }

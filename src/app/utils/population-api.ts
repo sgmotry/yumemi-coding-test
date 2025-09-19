@@ -1,15 +1,13 @@
 import { PopulationResponse } from '@/app/types/types'
 
 export const getPopulation = async (prefCode: number) => {
-  const APIKEY = process.env.YUMEMI_API_KEY
-
+  const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
   const response = await fetch(
-    `https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/population/composition/perYear?prefCode=${prefCode}`,
+    `${baseUrl}/api/population?prefCode=${prefCode}`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'X-API-KEY': APIKEY || '',
       },
     },
   )
@@ -19,6 +17,6 @@ export const getPopulation = async (prefCode: number) => {
   }
 
   const data: PopulationResponse = await response.json()
-
+  
   return data.result
 }
