@@ -1,6 +1,7 @@
 'use client'
 import { Prefecture } from '@/app/types/types'
 import { useState } from 'react'
+import PopulationGraph from './PopulationGraph'
 
 const PrefectureCheckBox = ({ data }: { data: Prefecture[] }) => {
   const [checkedCode, setCheckedCode] = useState<number[]>([])
@@ -29,6 +30,8 @@ const PrefectureCheckBox = ({ data }: { data: Prefecture[] }) => {
           </div>
         ))}
       </div>
+
+      <PopulationGraph checkedCode={checkedCode} prefectures={data}/>
     </>
   )
 }
