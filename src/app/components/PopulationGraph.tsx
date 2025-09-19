@@ -36,7 +36,7 @@ const PopulationGraph = ({
   prefectures: Prefecture[]
 }) => {
   const [populationData, setPopulationData] = useState<Population[]>([])
-  const [graphOption, setGraphOption] = useState<GraphOption>("総人口")
+  const [graphOption, setGraphOption] = useState<GraphOption>('総人口')
 
   useEffect(() => {
     if (checkedCode.length === 0) {
@@ -77,7 +77,7 @@ const PopulationGraph = ({
       const prefCode = checkedCode[index]
       const prefName = prefMap.get(prefCode)
       if (!prefName) return
-      
+
       // ラベルからデータを抽出
       const totalPopulation = prefPop.data.find((d) => d.label === graphOption)
       if (!totalPopulation) return
@@ -148,8 +148,8 @@ const PopulationGraph = ({
         <input
           name="options"
           type="radio"
-          checked={graphOption === "総人口"}
-          onChange={() => setGraphOption("総人口")}
+          checked={graphOption === '総人口'}
+          onChange={() => setGraphOption('総人口')}
         />
         総人口
       </label>
@@ -157,8 +157,8 @@ const PopulationGraph = ({
         <input
           name="options"
           type="radio"
-          checked={graphOption === "年少人口"}
-          onChange={() => setGraphOption("年少人口")}
+          checked={graphOption === '年少人口'}
+          onChange={() => setGraphOption('年少人口')}
         />
         年少人口
       </label>
@@ -166,8 +166,8 @@ const PopulationGraph = ({
         <input
           name="options"
           type="radio"
-          checked={graphOption === "生産年齢人口"}
-          onChange={() => setGraphOption("生産年齢人口")}
+          checked={graphOption === '生産年齢人口'}
+          onChange={() => setGraphOption('生産年齢人口')}
         />
         生産年齢人口
       </label>
@@ -175,8 +175,8 @@ const PopulationGraph = ({
         <input
           name="options"
           type="radio"
-          checked={graphOption === "老年人口"}
-          onChange={() => setGraphOption("老年人口")}
+          checked={graphOption === '老年人口'}
+          onChange={() => setGraphOption('老年人口')}
         />
         老年人口
       </label>
