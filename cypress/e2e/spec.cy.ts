@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('ページ動作チェック', () => {
   it('passes', () => {
     cy.visit('http://localhost:3000')
     cy.contains('北海道').click()
